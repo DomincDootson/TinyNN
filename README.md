@@ -7,3 +7,8 @@ In this project, I will build a simple NN module to train on toy problems. This 
 3. A way to compile and train the model neatly 
 4. Implimenting early stopping and dropout regularisation  
 5. Using numpy instead of list to increase efficancy?
+
+
+
+### Ref
+- A. Karpathy's repo: https://github.com/karpathy/micrograd/tree/master. 

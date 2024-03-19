@@ -10,6 +10,9 @@ class Neuron(Module):
 		self.b = Value(0)
 		self.nonlin = nonlin
 
+	def __len__(self):
+		return len(self.w)
+
 
 	def __call__(self, x):
 		

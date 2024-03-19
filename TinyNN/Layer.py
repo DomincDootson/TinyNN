@@ -13,7 +13,17 @@ class Layer(Module):
 	def parameters(self):
 		return [p for n in self.neurons for p in n.parameters()]
 
-	
+	def __len__(self):
+		return len(self.neurons)
 
+	def nin(self):
+		return len(self.neurons[0])
+	
+class DropoutLayer(Layer):
+	"""Impliments a dropout layer"""
+	def __init__(self, nin, nout, rate, **kwargs):
+		super(DropoutLayer, self).__init__(nin, nout, **kwargs)
+		self.rate = rate
+		
 
 
