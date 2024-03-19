@@ -1,7 +1,7 @@
-from TinyNN.Value import Value
-from TinyNN.Module import Module
-from TinyNN.Neuron import Neuron
-from TinyNN.Layer import Layer
+
+from TinyNN.NN.Module import Module
+
+
 
 class MLP(Module):
 	

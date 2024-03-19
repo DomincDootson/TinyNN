@@ -1,15 +1,16 @@
 ## These tests are taken from micrograd repo: https://github.com/karpathy/micrograd/tree/master
 
 import torch
-from TinyNN.Value import Value
+from TinyNN.NN.Value import Value
+from TinyNN.Activations.activation import Relu
 
 def test_sanity_check():
 
-    x = Value(-4.0)
+    x = Value(-4.0, activation = Relu())
     z = 2 * x + 2 + x
-    q = z.relu() + z * x
+    q = z.activate() + z * x
     
-    h = (z * z).relu()
+    h = (z * z).activate()
     y = h + q + q * x
     y.backward()
     xmg, ymg = x, y
@@ -33,17 +34,16 @@ def test_sanity_check():
     assert xmg.grad == xpt.grad.item()
 
 
-
 def test_more_ops():
 
-    a = Value(-4.0)
-    b = Value(2.0)
+    a = Value(-4.0, activation = Relu())
+    b = Value(2.0, activation = Relu())
     c = a + b
     d = a * b + b**3
     c += c + 1
     c += 1 + c + (-a)
-    d += d * 2 + (b + a).relu()
-    d += 3 * d + (b - a).relu()
+    d += d * 2 + (b + a).activate()
+    d += 3 * d + (b - a).activate()
     e = c - d
     f = e**2
     g = f / 2.0

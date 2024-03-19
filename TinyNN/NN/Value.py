@@ -1,7 +1,10 @@
+from TinyNN.Activations.activation import Relu, Linear
+
 class Value:
-	def __init__(self, data, _children = ()):
+	def __init__(self, data, activation = Linear(), _children = ()):
 		self.data = data
 		self.grad = 0
+		self.activation = activation
 
 		self._backward = lambda : None 
 		self._prev = set(_children)
@@ -11,8 +14,8 @@ class Value:
 	## ---------- ##
 
 	def __add__(self, other):
-		other = other if isinstance(other, Value) else Value(other)
-		new = Value(self.data + other.data, (self, other))
+		other = other if isinstance(other, Value) else Value(other, activation = self.activation)
+		new = Value(self.data + other.data, self.activation, (self, other))
 
 		def _backward():
 			self.grad += new.grad
@@ -22,8 +25,8 @@ class Value:
 		return new
 
 	def __mul__(self, other):
-		other = other if isinstance(other, Value) else Value(other)
-		new = Value(self.data * other.data, (self, other))
+		other = other if isinstance(other, Value) else Value(other, activation = self.activation)
+		new = Value(self.data * other.data, self.activation, (self, other))
 
 		def _backward():
 			self.grad += other.data * new.grad
@@ -35,7 +38,7 @@ class Value:
 	def __pow__(self, other):
 		assert isinstance(other, (float,int)), "We have only implimented int and float powers"
 		
-		new = Value(self.data ** other, (self,))
+		new = Value(self.data ** other, self.activation, (self,))
 
 		def _backward():
 			self.grad += other * (self.data **(other-1)) * new.grad
@@ -45,8 +48,16 @@ class Value:
 		return new
 
 
+	def activate(self):
+		new  = Value(self.activation.data(self.data), self.activation, (self,))
+
+		def _backward():
+			self.grad += self.activation.deriv(new.data) * new.grad
+		new._backward = _backward
+		return new
+
 	def relu(self):
-		new = Value(0 if self.data < 0 else self.data, (self,))
+		new = Value(0 if self.data < 0 else self.data, Relu(), (self,))
 
 		def _backward():
 			self.grad += (new.data > 0) * new.grad
@@ -98,4 +109,4 @@ class Value:
 		return other * self**-1
 
 	def __repr__(self):
-		return f"Value(data={self.data}, grad={self.grad})"
+		return f"Value(data={self.data}, grad={self.grad}, activation = {self.activation})"

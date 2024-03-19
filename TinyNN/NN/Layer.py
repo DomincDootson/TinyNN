@@ -1,6 +1,6 @@
-from TinyNN.Value import Value
-from TinyNN.Module import Module
-from TinyNN.Neuron import Neuron
+# from TinyNN.Value import Value
+from TinyNN.NN.Module import Module
+from TinyNN.NN.Neuron import Neuron
 
 class Layer(Module):
 	def __init__(self, nin, nout, **kwargs):

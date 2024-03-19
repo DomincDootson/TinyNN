@@ -1,5 +1,5 @@
-from TinyNN.MLP import MLP
-from TinyNN.Layer import Layer
+from TinyNN.MLP.NN import MLP
+from TinyNN.Layer.NN import Layer
 
 if __name__ == '__main__': 
 	print("Hello World")
