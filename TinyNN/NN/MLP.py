@@ -22,5 +22,8 @@ class MLP(Module):
 
 		self.layers.append(layer)
 
+	def forwards(self, X):
+		return [self(Xi) for Xi in X]
+
 	def parameters(self):
 		return [p for layer in self.layers for p in layer.parameters()]

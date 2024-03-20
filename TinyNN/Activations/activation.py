@@ -58,4 +58,15 @@ class Tanh(Activation):
 
 	def __repr__(self):
 		return "tanh"
-		
+
+
+class Exp(Activation):
+	"""Implimetnents tanh activation function"""
+	def data(self, child_data):
+		return np.exp(child_data)
+
+	def deriv(self, parent_data):
+		return parent_data
+
+	def __repr__(self):
+		return "exp"

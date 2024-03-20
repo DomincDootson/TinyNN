@@ -1,14 +1,11 @@
 # Tiny NN 
 
-In this project, I will build a tiny NN module to train on toy problems. This will build upon the Andrej Karpathy's `micrograd` NN. To this I want to add some of my own features:
+In this project, I will build a tiny NN module to train on toy problems. This will build upon the Andrej Karpathy's `micrograd` NN. 
 
-1. *Done*: A way to have different activation functions, e.g. tanh, relu, sigmoid,...
-2. *To Do*: Different loss functions 
-3. *To Do*: A way to compile and train the model neatly 
-4. *To Do*: Implimenting early stopping and dropout regularisation  
-5. *To Do*: Using numpy instead of list to increase efficancy?
+At its heart, this project is a way to impliment backpropagation for a NN. To do this we will create a tree stucture, so that gradient can be propergated back through the next.  
+
+I have create a NN that can use a variety of activation function and take in different loss/error functions to train. It works well on simple cases, but its speed limits the complexity of the NN that can be created. As a result it doesn't work well on complicated data. It is also senstive to train params.
 
 
-
-### Ref
+## Ref
 - A. Karpathy's repo: https://github.com/karpathy/micrograd/tree/master. 
